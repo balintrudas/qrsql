@@ -1,5 +1,7 @@
 ![banner](https://user-images.githubusercontent.com/22676978/54791812-cbf31e00-4c3b-11e9-8a4e-fb669aa38be5.jpg)
 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.balintrudas/qrsql/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.balintrudas/qrsql)
+
 # Qrsql - RSQL to Querydsl
 RESTful Service Query Language (RSQL) is a language and a library designed for searching entries in RESTful services.
 Querydsl is a framework which enables the construction of type-safe SQL-like queries for multiple backends.
@@ -22,6 +24,24 @@ Qrsql qrsql = new Qrsql.Builder<Car>(entityManager)
                   .where("(engine.screws.size=in=(2.2,5.5) and mfgdt=before='2018.03.01') or brand!='bmw'")
                   .build();
 List<Car> cars = qrsql.fetch();
+```
+
+# Maven
+
+Released versions are available in The Central Repository. Just add this artifact to your project:
+
+```groovy
+dependencies {
+    compile 'com.github.balintrudas:qrsql:1.0.0'
+}
+```
+
+```xml
+<dependency>
+  <groupId>com.github.balintrudas</groupId>
+  <artifactId>qrsql</artifactId>
+  <version>1.0.0</version>
+</dependency>
 ```
 
 # Usage
