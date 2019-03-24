@@ -5,6 +5,7 @@ plugins {
 }
 
 group 'com.github.balintrudas'
+archivesBaseName = "qrsql"
 version '1.0.0'
 
 sourceCompatibility = 1.8
