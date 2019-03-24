@@ -49,7 +49,7 @@ uploadArchives {
                 scm {
                     url 'https://github.com/balintrudas/qrsql'
                     connection 'scm:git:git://github.com/balintrudas/qrsql.git'
-                    developerConnection 'scm:git:ssh://git@github.com/balintrudas/qrsql.git'
+                    developerConnection 'scm:git:git@github.com:balintrudas/qrsql.git'
                 }
 
                 licenses {
