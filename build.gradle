@@ -1,0 +1,88 @@
+plugins {
+    id 'java'
+    id 'maven'
+    id 'signing'
+}
+
+group 'com.github.balintrudas'
+version '1.0.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+signing {
+    sign configurations.archives
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'Qrsql'
+                packaging 'jar'
+                description 'This library build a bridge between RSQL query language and Querydsl framework.'
+                url 'https://github.com/balintrudas/qrsql'
+
+                scm {
+                    url 'https://github.com/balintrudas/qrsql'
+                    connection 'scm:git:git://github.com/balintrudas/qrsql.git'
+                    developerConnection 'scm:git:ssh://git@github.com/balintrudas/qrsql.git'
+                }
+
+                licenses {
+                    license {
+                        name 'The MIT License (MIT)'
+                        url 'https://opensource.org/licenses/MIT'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'balintrudas'
+                        email 'balintrudas@gmail.com'
+                        name 'Balint Rudas'
+                    }
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile 'org.springframework.boot:spring-boot-starter-data-jpa:2.0.2.RELEASE'
+    testCompile 'org.springframework.boot:spring-boot-starter-jdbc:2.0.2.RELEASE'
+    testCompile 'org.springframework.boot:spring-boot-starter-web:2.0.2.RELEASE'
+    testCompile 'com.h2database:h2:1.4.197'
+    testCompile 'org.springframework.boot:spring-boot-starter-test:2.0.2.RELEASE'
+
+    compile group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
+    compile("com.querydsl:querydsl-apt:4.1.4")
+    compile('com.querydsl:querydsl-jpa:4.1.4')
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+    compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.0'
+    compile group: 'cz.jirutka.rsql', name: 'rsql-parser', version: '2.1.0'
+}
